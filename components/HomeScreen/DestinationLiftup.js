@@ -11,20 +11,22 @@ import {
 
 class DestinationLiftup extends React.Component {
   state = {
-    zIndex: 1,
+    z: 0,
   }
 
   componentWillMount() {
     this.slideValue = new Animated.Value(1)
+    this.zIndex = new Animated.Value(1)
   }
 
   _onEnter = () => {
-    Animated.spring(this.slideValue, {
-      delay: 100,
-      toValue: 1.3,
-      friction: 10,
-    }).start()
-    this.setState({zIndex: 100})
+    Animated.parallel([
+      Animated.spring(this.slideValue, {
+        delay: 100,
+        toValue: 1.3,
+        friction: 10,
+      })
+    ]).start()
   }
 
   _onExit = () => {
@@ -33,13 +35,13 @@ class DestinationLiftup extends React.Component {
       friction: 5,
       tension: 40,
     }).start()
-    this.setState({zIndex: 1})
   }
 
 
   render() {
-    const scale = {transform: [{scale: this.slideValue}], zIndex: this.state.zIndex }
+    const scale = {transform: [{scale: this.slideValue}] }
     const {destination, onClick} = this.props
+    
     
     return (
       <Animated.View 
@@ -66,8 +68,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   img: {
-    width: 200,
-    height: 120,
+    width: 240,
+    height: 180,
   },
   text: {
     textAlign: 'center',

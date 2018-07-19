@@ -18,7 +18,7 @@ const destinationsWithLocations = [
   {
     id: 1, 
     title: "South Africa",
-    background: "sa.mp4",
+    background: "africa360.jpg",
     locations: [
       {id: 1.1, title: "Crawford's Beach Lodge", photo: "sa_resort.jpg", startingPrice: '800$'},
       {id: 1.2, title: "Peermont Mondior at Emperors Palace", photo: "sa_resort.jpg", startingPrice: '1200$'},
@@ -30,7 +30,7 @@ const destinationsWithLocations = [
   {
     id: 2, 
     title: "Spain", 
-    background: "europe.mp4",
+    background: "spain360.jpg",
     locations: [
       {id: 1.1, title: "Iberostar Playa de Muro Village", photo: "spain_resort.jpg", startingPrice: '600$'},
       {id: 1.2, title: "Iberostar Albufera Playa", photo: "spain_resort.jpg", startingPrice: '450$'},
@@ -42,7 +42,7 @@ const destinationsWithLocations = [
   {
     id: 3, 
     title: "Egypt",
-    background: "egypt.mp4", 
+    background: "desert360.jpg", 
     locations: [
       {id: 1.1, title: "Parrotel Aqua Park", photo: "eg_resort.jpg", startingPrice: '350$'},
       {id: 1.2, title: "SUNRISE Arabian Beach Resort -Grand Select-", photo: "eg_resort.jpg", startingPrice: '1000$'},
@@ -54,7 +54,7 @@ const destinationsWithLocations = [
   {
     id: 4, 
     title: "Australia",
-    background: "falls.mp4", 
+    background: "australia360.jpg", 
     locations: [
       {id: 1.1, title: "Sal Salis, Cape Range National Park", photo: "au_resort.jpg", startingPrice: '1350$'},
       {id: 1.2, title: "Sheraton Mirage, Port Douglas", photo: "au_resort.jpg", startingPrice: '1900$'},
@@ -66,7 +66,7 @@ const destinationsWithLocations = [
   {
     id: 5, 
     title: "USA", 
-    background: "beach.mp4",
+    background: "usa360.jpg",
     locations: [
       {id: 1.1, title: "Turtle Bay Resort in Oahu, Hawaii", photo: "us_resort.jpg", startingPrice: '2350$'},
       {id: 1.2, title: "Grand Hotel on Mackinac Island, Michigan", photo: "us_resort.jpg", startingPrice: '2900$'},
@@ -90,18 +90,8 @@ class DestinationScreen extends React.Component {
 
   componentDidMount() {
     const {destination} = this.state
-    console.log(destination.background);
     
-    // Create a player
-    VideoModule.createPlayer('myplayer');
-    // Play a specific video
-    VideoModule.play('myplayer', {
-      loop: true,
-      source: {url: `./static_assets/${destination.background}`}, // provide the path to the video
-      stereo: '3DTB', // optionally, supply the format of the video
-    });
-    // Display the video on the Environment
-    Environment.setBackgroundVideo('myplayer');
+    Environment.setBackgroundImage(asset(destination.background));
   }
 
   getDestination(destinationId) {

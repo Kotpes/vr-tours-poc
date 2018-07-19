@@ -4,6 +4,8 @@ import {
   StyleSheet,
   Text,
   View,
+  Environment,
+  asset,
 } from 'react-360';
 import DestinationLiftup from './DestinationLiftup'
 
@@ -22,6 +24,10 @@ class HomeScreen extends React.Component {
 
   _onClick = (destinationId) => {
     this.props.history.push(`/destinations/${destinationId}`)
+  }
+
+  componentDidMount() {
+    Environment.setBackgroundImage(asset('lake.jpg'));
   }
 
   render() {
@@ -53,7 +59,7 @@ const styles = StyleSheet.create({
   panel: {
     // Fill the entire surface
     width: 1000,
-    height: 600,
+    height: 1000,
     flexDirection: "row",
     justifyContent: 'space-between',
     alignItems: 'flex-start',
