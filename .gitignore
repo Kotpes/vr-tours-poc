@@ -2,6 +2,7 @@
 *~
 *.log
 *.js.meta
+*.pem
 node_modules/
 build/
 
