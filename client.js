@@ -2,6 +2,7 @@
 // If you want to modify your application's content, start in "index.js"
 
 import {ReactInstance, Surface} from 'react-360-web';
+import store from './store/store'
 
 
 
@@ -18,17 +19,22 @@ function init(bundle, parent, options = {}) {
     Surface.SurfaceShape.Cylinder /* shape */
   );
 
+  const rightPanel = new Surface(300, 450, Surface.SurfaceShape.Flat);
+  rightPanel.setAngle(0.95, 0.1);
+
+  r360.renderToSurface(
+    r360.createRoot('RightPanel', {store}),
+    rightPanel,
+  );
+
   // Render your app content to the default cylinder surface
   r360.renderToSurface(
-    r360.createRoot('App', {}),
+    r360.createRoot('App', {store}),
     mainSurface
   );
 
   // Load the initial environment
   r360.compositor.setBackground(r360.getAssetURL('lake.jpg'));
-  const player = r360.compositor.createVideoPlayer('bgVideoPlayer');
-  // Instantiate the video, but do not play it yet
-  player.setSource(r360.getAssetURL('sa.mp4'), '3D');
 }
 
 window.React360 = {init};

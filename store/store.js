@@ -1,27 +1,33 @@
-import {observable} from 'mobx'
+import {observable, decorate, action} from 'mobx'
 
 let index = 0
 
-class ObservableListStore {
-  @observable list = {}
+class Store {
+  navigationHistory = {
+    currentCountry: '',
+    currentResort: '',
+    roomDescription: '',
+  }
 
-  
-
-  // removeListItem (item) {
-  //   this.list = this.list.filter((l) => {
-  //     return l.index !== item.index
-  //   })
-  // }
-
-  // addItem(item, name) {
-  //   this.list.forEach((l) => {
-  //     if (l.index === item.index) {
-  //       l.items.push(name)
-  //     }
-  //   })
-  // }
+  updateNavigationHistory = (data) => {
+    console.log(data)
+    if (data.currentCountry !== '') {
+      this.navigationHistory.currentCountry = data.currentCountry
+    }
+    if (data.currentResort !== '') {
+      this.navigationHistory.currentResort = data.currentResort
+    }
+    if (data.roomDescription !== '') {
+      this.navigationHistory.roomDescription = data.roomDescription
+    }
+  }
 }
 
+decorate(Store, {
+  navigationHistory: observable,
+  updateNavigationHistory: action,
+})
 
-const observableListStore = new ObservableListStore()
-export default observableListStore
+
+const store = new Store()
+export default store

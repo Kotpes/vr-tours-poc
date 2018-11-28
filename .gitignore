@@ -3,6 +3,7 @@
 *.log
 *.js.meta
 *.pem
+.env
 node_modules/
 build/
 

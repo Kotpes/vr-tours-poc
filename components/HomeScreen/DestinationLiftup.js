@@ -7,7 +7,10 @@ import {
   VrButton,
   Image,
   Animated,
+  asset
 } from 'react-360';
+import {observer} from 'mobx-react/native'
+import store from '../../store/store'
 
 class DestinationLiftup extends React.Component {
   state = {
@@ -42,19 +45,18 @@ class DestinationLiftup extends React.Component {
     const scale = {transform: [{scale: this.slideValue}] }
     const {destination, onClick} = this.props
     
-    
     return (
       <Animated.View 
-        style={scale}
+        style={[scale, styles.container]}
         onEnter={() => this._onEnter()}
         onExit={() => this._onExit()} 
       >
         <VrButton 
           style={styles.destination}
-          onClick={() => onClick(destination.id)}
+          onClick={() => onClick(destination)}
         >
           <Text style={[styles.text, {fontSize: 30}]}>{destination.name}</Text>
-          <Image style={styles.img} source={{uri: `${destination.photo}`}} />     
+          <Image style={styles.img} source={asset(`${destination.photo}`)} />     
           <Text style={styles.text}>from {destination.startingPrice}</Text>
         </VrButton>
       </Animated.View>
@@ -63,6 +65,13 @@ class DestinationLiftup extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'white',
+    width: 250,
+    height: 260,
+    overflow: 'hidden',
+    marginBottom: 20,
+  },
   destination: {
     padding: 5,
     marginBottom: 20,
@@ -77,4 +86,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default DestinationLiftup
+export default observer(DestinationLiftup)

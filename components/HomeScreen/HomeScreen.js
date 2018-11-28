@@ -7,23 +7,28 @@ import {
   Environment,
   asset,
 } from 'react-360';
+import {observer} from 'mobx-react/native'
+import {action} from 'mobx'
 import DestinationLiftup from './DestinationLiftup'
+import store from '../../store/store'
+
 
 const destinations = {
   title: "Destinations",
   items: [
-    {name: "South Africa", photo: "./static_assets/africa.jpg", id: "1", startingPrice: '1000$'},
-    {name: "Spain", photo: "./static_assets/espania.jpg", id: "2", startingPrice: '1200$'},
-    {name: "Egypt", photo: "./static_assets/egypt.jpg", id: "3", startingPrice: '900$'},
-    {name: "Australia", photo: "./static_assets/australia.jpg", id: "4", startingPrice: '2000$'},
-    {name: "USA", photo: "./static_assets/usa.jpg", id: "5", startingPrice: '700$'},
+    {name: "South Africa", photo: "africa.jpg", id: "1", startingPrice: '1000$'},
+    {name: "Spain", photo: "espania.jpg", id: "2", startingPrice: '1200$'},
+    {name: "Egypt", photo: "egypt.jpg", id: "3", startingPrice: '900$'},
   ]
 }
 
 class HomeScreen extends React.Component {
 
-  _onClick = (destinationId) => {
-    this.props.history.push(`/destinations/${destinationId}`)
+  _onClick = (destination) => {
+    this.props.history.push(`/destinations/${destination.id}`)
+    store.updateNavigationHistory({
+      currentCountry: destination.name
+    })
   }
 
   componentDidMount() {
@@ -31,6 +36,8 @@ class HomeScreen extends React.Component {
   }
 
   render() {
+
+    console.log(this.props)
     
     return (
       <View style={styles.container}>
@@ -42,7 +49,7 @@ class HomeScreen extends React.Component {
             destinations.items && destinations.items.map((destination) => {
               return (
                 <DestinationLiftup
-                  onClick={(destinationId) => this._onClick(destinationId)}
+                  onClick={(destination) => this._onClick(destination)}
                   destination={destination} 
                   key={destination.id} 
                 />
@@ -80,4 +87,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default HomeScreen
+export default observer(HomeScreen)
